@@ -30,6 +30,7 @@ int main()
 
                            case 'l':
                            scanf("%s", arg1);
+                           //fgets?
                            strcpy(command, "rm ");
                            strcat(command, arg1);
                            system(command);
