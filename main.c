@@ -15,7 +15,6 @@ int main()
     do{
         printf("\nPlease enter your DOS command; you may press ctrl-c to exit: ");
         
-        //fgets(command, 100, stdin); //reads in command 
         scanf("%s", command);
         
         
@@ -66,8 +65,10 @@ int main()
         
                 switch(command[3]){
                     case 'y':
-                    fgets(arg1, 50, stdin); //reads in argument
-                    fgets(arg2, 50, stdin); //reads in argument
+                    scanf("%s", arg1); //scans in argument to remove whitespace
+                    scanf("%s", arg2); //scans in argument to remove whitespace 
+                    //fgets(arg1, 50, stdin); //reads in argument 
+                    //fgets(arg2, 50, stdin); //reads in argument
                     strcpy(command, "cp ");
                     strcat(command, arg1);
                     printf("\nfile successfully copied");
@@ -93,7 +94,7 @@ int main()
                         strcpy(command, "cat ");
                         strcat(command, arg1);
                         system(command);
-                        printf("file successfully created");
+                        printf("\nfile successfully created");
                         break; 
                     }
                 break;
@@ -111,8 +112,10 @@ int main()
             
             switch(command[2]){
                 case 'n':
-                fgets(arg1, 50, stdin); //reads in argument
-                fgets(arg2, 50, stdin); //reads in argument
+                scanf("%s", arg1); //scans in argument to remove whitespace 
+                scanf("%s", arg2); //scans in argument to remove whitespace
+                //fgets(arg1, 50, stdin); //reads in argument
+                //fgets(arg2, 50, stdin); //reads in argument
                 strcpy(command, "mv ");
                 strcat(command, arg1);
                 strcat(command, " ");
@@ -137,3 +140,4 @@ int main()
 
     exit(0); //exit code 
 }
+
