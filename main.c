@@ -15,6 +15,7 @@ int main()
     do{
         printf("\nPlease enter your DOS command; you may press ctrl-c to exit: ");
         
+        //fgets(command, 100, stdin); //reads in command 
         scanf("%s", command);
         
         
@@ -29,8 +30,7 @@ int main()
                        switch(command[2]){
 
                            case 'l':
-                           scanf("%s", arg1);
-                           //fgets?
+                           fgets(arg1, 50, stdin); //reads in argument 
                            strcpy(command, "rm ");
                            strcat(command, arg1);
                            system(command);
@@ -53,7 +53,7 @@ int main()
         
             switch(command[1]){
                 case 'd':
-                    scanf("%s", arg1);
+                    fgets(arg1, 50, stdin); //reads in argument
                     strcpy(command, "cd ");
                     strcat(command, arg1);
                     system(command);
@@ -66,8 +66,8 @@ int main()
         
                 switch(command[3]){
                     case 'y':
-                    scanf("%s", arg1);
-                    scanf("%s", arg2);
+                    fgets(arg1, 50, stdin); //reads in argument
+                    fgets(arg2, 50, stdin); //reads in argument
                     strcpy(command, "cp ");
                     strcat(command, arg1);
                     printf("\nfile successfully copied");
@@ -89,7 +89,7 @@ int main()
                     case 'p':
                     switch(command[3]){
                         case 'e': //Type(e.g. type >file1) desired text and then press CTRL-D to exit and save file
-                        scanf("%s", arg1);
+                        fgets(arg1, 50, stdin); //reads in argument
                         strcpy(command, "cat ");
                         strcat(command, arg1);
                         system(command);
@@ -111,8 +111,8 @@ int main()
             
             switch(command[2]){
                 case 'n':
-                scanf("%s", arg1);
-                scanf("%s", arg2);
+                fgets(arg1, 50, stdin); //reads in argument
+                fgets(arg2, 50, stdin); //reads in argument
                 strcpy(command, "mv ");
                 strcat(command, arg1);
                 strcat(command, " ");
