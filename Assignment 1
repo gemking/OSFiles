@@ -1,0 +1,68 @@
+										    Luis Vivas
+											    9/14/2018
+											    COP4610
+										                 Prof. Ahuja
+											  Assignment 1
+
+1(a-c; Gantt drawn on separate sheet of paper).
+ FCFS:
+Performance:
+(T) = Time
+Process	Arrival(T)    Burst(T)	Priority	     Turnaround(T)     Waiting(T)
+P1		0	        10		 3	     10		          0             	
+P2		0	          1		 1	     11		          10
+P3		0	          2		 3	     13		          11
+P4		0	          1		 4	     14		          13
+P5		0	          5	 	 2	     19		          14
+Average					     13.4		          9.6
+
+Preemptive, shortest-next-CPU-burst SJF:
+Performance:
+(T) = Time
+Process	Arrival(T)	Burst(T)          Priority		Turnaround(T)		Waiting(T)
+P1		0		10		3		19			9
+P2        	             0		   1	  	1		  1			0		
+P3		0		   2		3		  4			2
+P4		0		   1		4		  2			1
+P5		0		   5		2		  9			4
+Average							  7		            3.2
+
+Nonpreemptive, Priority:
+Performance:
+(T) = Time
+Process	Arrival(T)	Burst(T)	Priority		Turnaround(T)		Waiting(T)
+P1		0		10		3		 16			  6
+P2		0		  1		1		   1			  0
+P3		0		  2		3		 18			16
+P4		0		  1		4		 19			18	
+P5		0		  5		2		   6			  1
+Average							 13.4			8.2
+
+Round Robin:
+Performance:
+(T) = Time
+Process	Arrival(T)	Burst(T)	Priority		Turnaround(T)		Waiting(T)
+P1		0		10		3		19			9
+P2		0		  1		1		  2			1
+P3		0		  2		3		  7			5
+P4		0		  1		4		   4			3
+P5		0		  5		2		  14			9
+Average							  9.2			5.4
+
+1(d). Average Waiting(T):
+(T) = Time
+Algorithm					Average Waiting(T)
+FCFS:							9.6
+Nonpreemptive, priority:				8.2
+Round Robin:						5.4
+Preemptive, shortest-next-CPU-burst SJF:		3.2
+
+From the gathered results above, we can conclude that SJF has the minimum average waiting 
+
+time. 
+
+3. All of the I/O bound processes have a short CPU burst; thus, when the CPU is passed to them,
+they can execute at a fast pace and proceed to the I/O queue. In contrast, CPU bound processes
+require much more CPU time each time the CPU is passed to them. In conclusion, since I/O 
+bound processes will always have less CPU time than CPU bound processes in the ready queue, 
+the scheduling algorithm will favor I/O bound processes.
