@@ -1,0 +1,19 @@
+	T-Delay = M(bits)/Rate(bits/sec) = M/R seconds
+
+M(bits) = 32(Gigabytes) * 〖10〗^9 * 1000 = 3.2 * 〖10〗^13 bits. 
+R(bits) = 100(mbps) * 〖10〗^6 = 〖10〗^8 bps.  
+T-Delay = (3.2*〖10〗^13 bits)/(〖10〗^8 bits/s) = 3.2 * 〖10〗^5s. Convert to ms: 〖10〗^(-3) * (3.2 * 〖10〗^5)
+= 3.2 * 〖10〗^2 ms.
+	average speed: 36 km/h = (36 * 〖10〗^3  m)/(3.6*〖10〗^3 s) = 10m/s. 
+	
+	d(distance) = r(constant or average rate of speed) * t (time) = 
+	10m/s * 3.2 * 〖10〗^5s = 3.2 * 〖10〗^6m. Convert to km: 3.2 * 〖10〗^6 * 〖10〗^(-3) = 
+	3.2 * 〖10〗^3km.  Distance greater than 3.2 * 〖10〗^3km?
+	
+	Speed of signals = approximately 3.0 * 〖10〗^8 m/s. 3.0 * 〖10〗^8 x 2/3 = 2.0 * 〖10〗^8 m/s. 
+Length = 200km, which is 200 * 〖10〗^3 m = 2.0 * 〖10〗^5m.
+
+    Answer: Propagation delay (Length/speed of signals) = (2.0 * 〖10〗^5  m)/(2.0 * 〖10〗^8 m/s) = 〖10〗^(-3) s.
+    Convert to ms: 〖10〗^(-3) * 〖10〗^3 = 1 ms
+
+
