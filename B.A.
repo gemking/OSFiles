@@ -35,9 +35,9 @@ System.out.println("Please Enter the Allocation Matrix");
 
 for(int i = 0;i < numberOfResources;i++){ //iterate for loop
 
-char c= (char) ((char) 65+i);
+char letter = (char) ((char) 65+i);
 
-System.out.print(c+" ");
+System.out.print(letter+" ");
 
 }
 
@@ -98,7 +98,7 @@ input.close();
 }
 
 
-public void cal_need(){
+public void calculateNeed(){
 
 for(int i=0;i<numberOfCustomers;i++){
 
@@ -114,11 +114,11 @@ need[i][j]=max[i][j]-allocation[i][j]; //the need matrix is being calculated
 
 
 
-public boolean check(int x){
+public boolean check(int p){
 //This is a check making sure if all the resources for pth process can be allocated
 for(int i=0;i<numberOfResources;i++){
 
-if(available[0][i]<need[x][i]){
+if(available[0][i]<need[p][i]){
 
 return false;
 
@@ -134,13 +134,13 @@ return true;
 
 public void alogrithm(){
 
-cal_need();
+calculateNeed();
 
-int c= 0;
+int processesToBeAllocated = 0;
 
 boolean status[]=new boolean[numberOfCustomers];
 
-while(c < numberOfCustomers){ //iterates until all the processes have been allocated
+while(processesToBeAllocated < numberOfCustomers){ //iterates until all the processes have been allocated
 
 boolean allocated=false;
 
@@ -152,7 +152,7 @@ status[i]=true;
 
 allocated=true;
 
-c++;
+processesToBeAllocated++;
 
 System.out.println("The Process Allocated: "+i);
 
@@ -172,7 +172,7 @@ if(!allocated) break; //if there is no allocation
 
 }
 
-if(c==numberOfCustomers) //if all the processes have been allocated
+if(processesToBeAllocated == numberOfCustomers) //if all the processes have been allocated
 
 System.out.println("\nSafely allocated; safety algorithm satisfied/bank request accepted");
 
@@ -183,37 +183,40 @@ System.out.println("Not all processes can be safely allocated; safety algorithm 
 }
 
     public static void main(String[] args) {
-        BankersAlgorithm obj=new BankersAlgorithm();
+        BankersAlgorithm object = new BankersAlgorithm();
 
-obj.input();
+object.input();
 
-obj.alogrithm();
+object.alogrithm();
     }
     
 }
 /*
-Enter no. of Process and no. of Resource 
-5  3
-Enter Allocation Matrix
-A	B	C	
-0        1      0
-2       0       0
+Enter the number of Customers(A.K.A. Processes) and Resources 
+5 3
+Please Enter the Allocation Matrix
+A B C 
+0 1 0
+2 0 0
 3 0 2
-2 1  1
+2 1 1
 0 0 2
-Enter Max Matrix
-A	B	C	
+Please Enter the Max Matrix
+A B C 
 7 5 3
-3 2 3
-9 0 1
+3 2 2
+9 0 2
 2 2 2
 4 3 3
-Enter Available Matrix
-A	B	C	
-3 3 2
-Allocated process : 3
-Allocated process : 4
-Allocated process : 1
-Allocated process : 2
-Allocated process : 0
-Safely allocated
+Please Enter the Available Matrix
+A  B C 
+10 5 7
+The Process Allocated: 0
+The Process Allocated: 1
+The Process Allocated: 2
+The Process Allocated: 3
+The Process Allocated: 4
+
+Safely allocated; safety algorithm satisfied/bank request accepted
+
+*/
