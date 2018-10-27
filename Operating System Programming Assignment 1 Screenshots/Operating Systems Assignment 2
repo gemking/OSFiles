@@ -1,0 +1,128 @@
+											    Luis Vivas
+											    9/14/2018
+											    COP4610
+										                 Prof. Ahuja
+											  Assignment 2
+
+1.
+	Allocation		Max		Available
+              A B C D 		A B C D	              A B C D
+P0     	0 0 1 2    		 0 0 1 2		1 5 2 0
+P1     	1 0 0 0 			 1 7 5 0      
+ P2  	1 3 5 4			 2 3 5 6
+P3     	0 6 3 2 		               0 6 5 2
+P4	0 0 1 4		  	 0 6 5 6
+
+a.	What is the content of the matrix Need?
+Need = Max – Allocation
+		Need
+A 	B 	C 	D
+P0 	0 	0 	0 	0
+P1 	0 	7 	5 	0
+P2 	1 	0 	0 	2
+P3 	0 	0 	2 	0
+P4 	0 	6 	4 	2
+
+
+b.	Is the system in a safe state? If so, determine the safe sequence.
+
+The system above is in a safe state; the safe sequence is <P0, P1, P3, P4>.
+
+c.	 If a request from P1 arrives for (0, 4, 2, 0) can the request be granted immediately? 
+             Allocation		Max	  	Need      	   Available
+              A B C D 		A B C D	               A B C D                 A B C D
+P0     	0 0 1 2    		 0 0 1 2		  0 0 0 0                 1 5 2 0
+P1     	1 0 0 0 			 1 7 5 0                 0 3 3 0
+P2  	1 3 5 4			 2 3 5 6                 1 0 0 2
+P3     	0 6 3 2 		               0 6 5 2                  0 0 2 0
+P4	0 0 1 4		  	 0 6 5 6                   0 6 4 2 
+
+Even after using the safety algorithm, the system is still in a safe state; thus, a request
+
+may be granted, which could give a safe sequence of <P0, P2, P1, P3, P4>. 
+
+2. Prove the Dekker algorithm satisfies all three requirements of the critical-section problem.
+
+The algorithm satisfies all three requirements: 
+a.	 Mutual Exclusion is ensured through the use of the flag and turn variables. If both of the 
+processes set their flag to true, only the process whose turn it is will succeed, which will
+	only cause one of the processes to succeed.  The waiting process can only enter its 
+	critical section once the other process has updated the value of turn. 
+
+b.	 Progress is also ensured through the use of the flag and turn variables. The algorithm
+does not provide strict alternation; thus if a process wishes to enter into the critical 
+	section, its flag variable must be set to true. When it comes out of the critical section, 
+	its flag variable must be set to false and set turn to the value of the other process. If the 
+             other process wishes to enter into the critical section, its flag variable must be set to 
+
+              true. The process is repeated and the progress is ensured through the flag and turn 
+              variables. 
+c.	Bounded waiting is preserved through the use of the turn variable.  Consider a
+situation where process 1 and process 2 both wish to enter into the critical 
+	section:
+		Even if both processes would set their flag variables to be true, it would
+	not be possible for both processes to enter into the critical section; thus, one process
+	would need to wait for the other process to complete before it could enter into 
+	the critical section. If the bounded waiting requirement is not preserved, the waiting
+	process would wait for indefinitely while the other process would enter into the critical
+	section repeatedly. 
+ 
+3.  Given five memory partitions of 100k, 500k, 200k, 300k, and 600k (in order), how would each of the First-fit, Best-fit, and Worst-fit algorithms place processes of 212k, 417k, 112k, and 412k (in order)? Which algorithm makes the most efficient use of memory (in this case)?
+
+First-Fit:
+212K is put in the 500k partition.
+417K is put in the 600K partition.
+112K is put in the 288K partition (500K – 212K).
+412K must wait. 
+
+Best-Fit: 
+212K is put in the 300K partition. 
+417K is put in the 600K partition.
+112K is put in the 200K partition.
+412K is put in the 500K partition. 
+
+Worst-Fit: 
+212K is put in the 600K partition.
+417K is put in the 500K partition.
+112K is put in the 388K partition(600K – 212K).
+412K partition must wait 
+
+In this case, the Best-fit algorithm makes the most efficient use of memory. 
+4. Consider a paging system with the page table stored in memory:
+ 
+i)	2(memory accesses) * 150ns = 300ns.
+ii)	Effective memory access time: .8 * TLB hit-time + .25 * TLB miss-time = 
+(.8 * 150ns)  + (.25 + 300ns) = 195ns.
+5. Consider the following page reference string:
+0, 1, 7, 0, 1, 2, 0, 1, 2, 3, 2, 7, 1, 0, 3, 1, 0, 3
+How many page faults would occur for the following page replacement algorithms?(Three 
+frames are allocated to the process)
+
+a.	FIFO
+FRAME: 0       1      7      0      1      2      0      1      2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      2      2       2     2      3      3      3      1      1       1      1       1      1
+1                       1     1       1      1      1      0       0     0      0      2      2      2      0       0      0       0      0
+2    		      7       7      7      7      7       1     1      1      1      7      7      7       3      3       3      3
+               F        F      F                        F      F       F              F      F      F      F      F       F       
+
+
+
+
+
+b.	Optimal
+
+
+
+FRAME: 0       1      7      0      1      2      0      1      2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      2      2       2     2      2      2      2      1      1       1      1       1      1
+1                       1     1       1      1      1      0       1     1      3      3      3      3      3       3      3       3      3
+2    		      7       7      7      7      7       7     7      7      7      7      7      0       0      0       0       0
+               F        F      F                        F      F       F              F                      F      F             
+
+c.	LRU 
+
+FRAME: 0       1      7      0      1      2      0      1      2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      0      0      0      0      3      3      3      1      1       1      1       1      1
+1                       1     1       1      1      1      1      1      1      1      1      7      7      7       3      3       3      3
+2    		      7       7      7      2      2      2      2      2      2      2      2      0       0      0       0       0
+               F        F      F                        F                               F              F      F      F        F
