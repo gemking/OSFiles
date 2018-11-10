@@ -1,0 +1,144 @@
+											    Luis Vivas
+											    9/14/2018
+											    COP4610
+										                 Prof. Ahuja
+											  Assignment 2
+
+1.
+	Allocation		Max		Available
+              A B C D 		A B C D	              A B C D
+P0     	0 0 1 2    		 0 0 1 2		1 5 2 0
+P1     	1 0 0 0 			 1 7 5 0      
+ P2  	1 3 5 4			 2 3 5 6
+P3     	0 6 3 2 		               0 6 5 2
+P4	0 0 1 4		  	 0 6 5 6
+
+a.	What is the content of the matrix Need?
+Need = Max – Allocation
+		Need
+A 	B 	C 	D
+P0 	0 	0 	0 	0
+P1 	0 	7 	5 	0
+P2 	1 	0 	0 	2
+P3 	0 	0 	2 	0
+P4 	0 	6 	4 	2
+
+
+b.	Is the system in a safe state? If so, determine the safe sequence.
+P0: 0000 ≤ 1520 True; thus, Work(A.K.A. Available) = Work + alloc. 1520 + 0012 = 1532.
+P1: 0750 ≤ 1532 False.
+P2: 1002  ≤ 1532 True; thus, Work = Work + alloc. 1532 + 1354 = 2886.
+P3: 0020  ≤ 2886 True; thus, Work = Work + alloc. 2886 + 0632 = 2 14 11 8.
+P4: 0642  ≤ 2 4 11 8 True; thus, Work = Work + alloc. 2 4 11 8 + 0014 = 2 14 12 12.
+P1:  0750  ≤ 2 14 12 12 True; thus, Work = Work + alloc. 2 14 12 12 + 1000 = 3 14 12 12.
+
+
+
+
+ 
+The system above is in a safe state; the safe sequence is <PO, P2, P3, P4, P1>.
+
+c.	 If a request from P1 arrives for (0, 4, 2, 0) can the request be granted immediately? 
+             Allocation		Max	  	Need      	   Available
+              A B C D 		A B C D	               A B C D                 A B C D
+P0     	0 0 1 2    		 0 0 1 2		  0 0 0 0                 1 5 2 0
+P1     	1 4 2 0 			 1 7 5 0                 0 3 3 0
+P2  	1 3 5 4			 2 3 5 6                 1 0 0 2
+P3     	0 6 3 2 		               0 6 5 2                  0 0 2 0
+P4	0 0 1 4		  	 0 6 5 6                  0 6 4 2 
+P0: 0000 ≤ 1520 True; thus, Work(A.K.A. Available) = Work + alloc. 1520 + 0012 =1532.
+P1: 0330 ≤ 1532 True; thus, Work = Work + alloc. 1532 + 1420 = 1952. 
+P2: 1002  ≤ 1952 True; thus, Work = Work + alloc. 1952 + 1354 = 2 12 10 6.
+P3: 0020  ≤ 2 12 10 6 True; thus, Work = Work + alloc. 2 12 10 6 + 0632 = 2 18 13 8.
+P4: 0642  ≤ 2 4 11 8 True; thus, Work = Work + alloc. 2 18 13 8 + 0014 = 2 18 14 12.
+
+Even after using the safety algorithm, the system is still in a safe state; thus, a request
+
+may be granted, which could give a safe sequence of <P0, P1, P2, P3, P4 >. 
+
+2. Prove the Dekker algorithm satisfies all three requirements of the critical-section problem.
+
+The algorithm satisfies all three requirements: 
+a.	 Mutual Exclusion is ensured through the use of the flag and turn variables. If both of the 
+processes set their flag to true, only the process whose turn it is will succeed, which will
+	only cause one of the processes to succeed.  The waiting process can only enter its 
+	critical section once the other process has updated the value of turn. 
+
+b.	 Progress is also ensured through the use of the flag and turn variables. The algorithm
+does not provide strict alternation; thus if a process wishes to enter into the critical 
+	section, its flag variable must be set to true. When it comes out of the critical section, 
+	its flag variable must be set to false and change the turn value of the other process. If 
+the other process wishes to enter into the critical section, its flag variable must be set to 
+
+              true. The process is repeated and the progress is ensured through the flag and turn 
+              variables. 
+c.	Bounded waiting is preserved through the use of the turn variable.  Consider a
+situation where process 1 and process 2 both wish to enter into the critical 
+	section:
+		Even if both processes would set their flag variables to be true, it would
+	not be possible for both processes to enter into the critical section; thus, one process
+	would need to wait for the other process to complete before it could enter into 
+	the critical section. If the bounded waiting requirement is not preserved, the waiting
+	process would wait for indefinitely while the other process would enter into the critical
+	section repeatedly. 
+ 
+3.  Given five memory partitions of 100k, 500k, 200k, 300k, and 600k (in order), how would each of the First-fit, Best-fit, and Worst-fit algorithms place processes of 212k, 417k, 112k, and 412k (in order)? Which algorithm makes the most efficient use of memory (in this case)?
+
+First-Fit:
+212K is placed into the 500k partition(500K – 212K = 288K remaining). 
+417K is placed into the 600K partition(600K – 417K = 183K remaining).
+112K is placed into the 288K partition (288K – 112K = 176K remaining). 
+412K has none it can be placed into; therefore, it fails. 
+
+Best-Fit: 
+212K is placed into the 300K partition(300K-212K = 88K remaining).
+417K is placed into the 600K partition(600K – 417K = 183K remaining).
+112K is placed into the 200K partition(200K – 112K = 88K remaining).
+412K is placed into the 500K partition(500K – 412K = 88K remaining). 
+
+Worst-Fit: 
+212K is placed into the 600K partition(600K – 412K = 188K remaining).
+417K is placed into the 500K partition(500K – 417K = 83K remaining).
+112K is placed into the 388K partition(388K – 112K = 276K remaining).
+412K has none it can be placed into; therefore, it fails.
+
+In this case, the Best-fit algorithm makes the most efficient use of memory. 
+4. Consider a paging system with the page table stored in memory:
+ 
+i)	2(memory accesses) * 150ns = 300ns.
+ii)	Effective memory access time: .8 * (TLB hit-time + 20) + .2 * (TLB miss-time + 20)= 
+(.8 * 170ns)  + (.2 * 320ns) = 200ns.
+5. Consider the following page reference string:
+0, 1, 7, 0, 1, 2, 0, 1, 2, 3, 2, 7, 1, 0, 3, 1, 0, 3
+How many page faults would occur for the following page replacement algorithms?(Three 
+frames are allocated to the process)
+
+a.	FIFO
+FRAME: 0       1      7      0      1      2      0      1      2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      2      2       2     2      3      3      3      1      1       1      1       1      1
+1                       1     1       1      1      1      0       0     0      0      2      2      2      0       0      0       0      0
+2    		      7       7      7      7      7       1     1      1      1      7      7      7       3      3       3      3
+               F        F      F                        F      F       F              F      F      F      F      F       F       
+
+
+
+
+
+b.	Optimal
+
+
+
+FRAME: 0       1     7      0      1      2       0       1      2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      0      0       0      0      3      3      3      3      3       3      3       3      3
+1                       1     1       1      1      1      1       1      1      1      1      1      1      1       1      1       1      1
+2    		      7       7      7      2      2       2      2      2      2      7      7      0       0      0       0      0
+               F        F      F                        F                                F              F               F           
+
+c.	LRU 
+
+FRAME: 0       1     7       0      1      2      0      1      2      3      2      7      1      0       3      1       0       3 
+0             0       0     0       0      0      0      0      0      0      3      3      3      1      1       1      1       1       1
+1                       1     1       1      1      1      1      1      1      1      1      7      7      7       3      3       3       3
+2    		      7       7      7      2      2      2      2      2      2      2      2      0       0      0       0       0
+               F        F      F                        F                               F              F      F      F        F
+
