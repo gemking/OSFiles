@@ -1,0 +1,143 @@
+Types of Problems: 
+1.	Using Banker’s algorithm to determine if state is safe and safe sequence. 
+	Allocation		Max		Available
+	ABCD			ABCD		ABCD
+P0	0012			0012		1520
+P1	1000			1750
+P2	1354			2356
+P3	0632			0652
+P4	0014			0656
+
+a.	What is the content of the matrix need? 
+Need = Max – Allocation 
+		Need
+	A	B	C	D
+P0	0	0	0	0
+P1	0	7	5	0
+P2	1	0	0	2
+P3	0	0	2	0
+P4	0	6	4	2
+
+b.	Is the system in a safe state? If so, determine the safe sequence. 
+P0: Need ≤ Available. 0000 ≤ 1520 True; thus, Work(A.K.A. Available) = Work + alloc. 1520 + 0012 = 1532.
+P1: 0750 ≤ 1532 False. 
+P2: 1002 ≤ 1532 True; thus, Work + alloc. 1532 + 1354 = 2886.
+P3: 0020 ≤ 2886 True; thus, Work + alloc. 2886 + 0632 = 2 14 11 8. 
+P4: 0642 ≤ 2 14 11 8 True; thus, Work + alloc. 2 14 11 8 + 0014 = 2 14 12 12.
+P1: 0750 ≤ 2 14 12 12; thus, Work + alloc. 2 14 12 12 + 1000 = 3 14 12 12. 
+
+Allocation		Max		Need		Available
+	ABCD			ABCD		ABCD		ABCD
+P0	0012			0012		0000		1520(1520 – 0420) = 1100.
+P1	1420			1750		0330
+P2	1354			2356		1002
+P3	0632			0652		0020
+P4	0014			0656		0642
+
+P0: Need ≤ Available. 0000 ≤ 1100 True; thus, Work(A.K.A. Available) = Work + alloc. 1100 + 0012 = 1112.
+P1: 0330 ≤ 1112 False. 
+P2: 1002 ≤ 1112 True; thus, Work = Work + alloc. 1112 + 1354 = 2466. 
+P3: 0020 ≤ 2466 True; thus, Work = Work + alloc. 2466 + 0632 = 2 10 9 8. 
+P4: 0642 ≤ 2 10 9 8 True; thus, Work = Work + alloc. 2 10 9 8 + 0014 = 2 10 10 12. 
+P1: 0330 ≤ 2 10 10 12 True; thus, Work = Work + alloc. 2 10 10 12 + 1420 = 3 14 12
+12.
+
+2.	Computing memory access time with no TLBs and with TLBs. 
+i)	If a memory reference takes 150 ns, how long does a paged 	memory reference take? (Note: in this case there are no Translation Look-Aside buffers i.e. any TLBs).
+2(memory accesses) * 150ns = 300ns. 
+										
+
+ii)	If we add TLBs, and we have a hit ratio of 80%, what is the 	effective memory access time? Assume that finding a page table entry in the TLBs takes 20 ns if the entry is there.
+Effective memory access time: 8 * (TLB hit-time + 20) + .2 * (TLB miss-time + 20).
+(.8 * (150 + 20)) + (.2 * (300+20)) = (.8 * 170) + (.2 * 320) = 136 + 64 = 200ns. 
+
+3. Consider the following page reference string:
+
+	0, 1, 7, 0, 1, 2, 0, 1, 2, 3, 2, 7, 1, 0, 3, 1, 0, 3
+
+How many page faults would occur for the following page replacement algorithms? Assume no pre-paging occurs, and show what pages are in memory at each given time. Three frames are allocated to the process.
+
+FIFO
+Optimal
+LRU
+
+a.	FIFO
+FRAME: 0       1     7       0      1       2     0       1     2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      2      2       2     2      3      3      3      1      1       1      1       1      1
+1                       1     1       1      1      1      0       0     0      0      2      2      2      0       0      0       0      0
+2    		      7       7      7      7      7       1     1      1      1      7      7      7       3      3       3      3
+               F        F      F                        F      F       F              F      F      F      F      F       F       
+FIFO (encounter page fault, replace first number on top and then work your go down for each page fault afterwards). 
+
+b.	Optimal
+
+
+
+FRAME: 0       1     7       0      1      2       0       1     2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      0      0       0      0      3      3      3      3      3       3      3       3      3
+1                       1     1       1      1      1      1       1      1      1      1      1      1      1       1      1       1      1
+2    		      7       7      7      2      2       2      2      2      2      7      7      0       0      0       0      0
+               F        F      F                        F                                F              F               F           
+Replace number that won’t be used for the longest duration. 
+	
+
+c.	LRU 
+
+FRAME: 0       1     7       0      1      2      0      1      2      3      2      7      1      0       3      1       0       3 
+0             0       0     0       0      0      0      0      0      0      3      3      3      1      1       1      1       1       1
+1                       1     1       1      1      1      1      1      1      1      1      7      7      7       3      3       3       3
+2    		      7       7      7      2      2      2      2      2      2      2      2      0       0      0       0       0
+               F        F      F                        F                               F              F      F      F        F
+
+Replace page that was least recently used. 
+4.  Any other problem as in Assignment #2. 
+Given five memory partitions of 100k, 500k, 200k, 300k, and 600k (in order), how would each of the First-fit, Best-fit, and Worst-fit algorithms place processes of 212k, 417k, 112k, and 412k (in order)? Which algorithm makes the most efficient use of memory (in this case)?
+
+First-Fit:
+212K is placed into the 500k partition(500K – 212K = 288K remaining). 
+417K is placed into the 600K partition (600K – 417K = 183K remaining).
+112K is placed into the 288K partition (288K – 112K = 176K remaining). 
+412K has none it can be placed into; therefore, it fails. 
+Deal each process with each partition(searches for the first partition that works for the process). third process subtracts the remaining partition of the first process. 
+
+Best-Fit: 
+212K is placed into the 300K partition(300K-212K = 88K remaining).
+417K is placed into the 500K partition(500K – 417K = 83K remaining).
+112K is placed into the 200K partition(200K – 112K = 88K remaining).
+412K is placed into the 600K partition(600K – 412K = 188K remaining). 
+Each process is put into the partition that has the least amount of wasted space. 
+Worst-Fit: 
+212K is placed into the 600K partition(600K – 212K = 388K remaining).
+417K is placed into the 500K partition(500K – 417K = 83K remaining).
+112K is placed into the 388K partition(388K – 112K = 276K remaining).
+412K has none it can be placed into; therefore, it fails.
+Each process is put into the partition that has the most amount of wasted space. 
+third process subtracts the remaining partition of the first process.
+In this case, the Best-fit algorithm makes the most efficient use of memory. 
+5. Prove the Dekker algorithm satisfies all three requirements of the critical-section problem.
+
+The algorithm satisfies all three requirements: 
+a.	 Mutual Exclusion is ensured through the use of the flag and turn variables. If both of the 
+
+processes set their flag to true, only the process whose turn it is will succeed, which will 
+only cause one of the processes to succeed.  The waiting process can only enter its 
+	critical section once the other process has updated the value of turn. 
+
+b.	 Progress is also ensured through the use of the flag and turn variables. The algorithm
+
+does not provide strict alternation; thus if a process wishes to enter into the critical 
+	section, its flag variable must be set to true. When it comes out of the critical section, 
+	its flag variable must be set to false and change the turn value of the other process. If 
+the other process wishes to enter into the critical section, its flag variable must be set to 
+              true. The process is repeated and the progress is ensured through the flag and turn 
+              variables. 
+c.	Bounded waiting is preserved through the use of the turn variable.  Consider a
+
+situation where process 1 and process 2 both wish to enter into the critical 
+	section:
+		Even if both processes would set their flag variables to be true, it would
+	not be possible for both processes to enter into the critical section; thus, one process
+	would need to wait for the other process to exit out of the critical section and have its 
+turn value set to true before it could enter into the critical section. If the bounded 
+waiting requirement is not preserved, the waiting process would wait for indefinitely 
+while the other process would enter into the critical section repeatedly. 
