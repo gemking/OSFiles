@@ -1,0 +1,360 @@
+Types of Problems: 
+1.	Using Banker’s algorithm to determine if state is safe and safe sequence. 
+	Allocation		Max		Available
+	ABCD			ABCD		ABCD
+P0	0012			0012		1520
+P1	1000			1750
+P2	1354			2356
+P3	0632			0652
+P4	0014			0656
+
+a.	What is the content of the matrix need? 
+Need = Max – Allocation 
+		Need
+	A	B	C	D
+P0	0	0	0	0
+P1	0	7	5	0
+P2	1	0	0	2
+P3	0	0	2	0
+P4	0	6	4	2
+
+b.	Is the system in a safe state? If so, determine the safe sequence. 
+P0: Need ≤ Available. 0000 ≤ 1520 True; thus, Work(A.K.A. Available) = Work + alloc. 1520 + 0012 = 1532.
+P1: 0750 ≤ 1532 False. 
+P2: 1002 ≤ 1532 True; thus, Work + alloc. 1532 + 1354 = 2886.
+P3: 0020 ≤ 2886 True; thus, Work + alloc. 2886 + 0632 = 2 14 11 8. 
+P4: 0642 ≤ 2 14 11 8 True; thus, Work + alloc. 2 14 11 8 + 0014 = 2 14 12 12.
+P1: 0750 ≤ 2 14 12 12; thus, Work + alloc. 2 14 12 12 + 1000 = 3 14 12 12. 
+
+Allocation		Max		Need		Available
+	ABCD			ABCD		ABCD		ABCD
+P0	0012			0012		0000		1520(1520 – 0420) = 1100.
+P1	1420			1750		0330
+P2	1354			2356		1002
+P3	0632			0652		0020
+P4	0014			0656		0642
+
+P0: Need ≤ Available. 0000 ≤ 1100 True; thus, Work(A.K.A. Available) = Work + alloc. 1100 + 0012 = 1112.
+P1: 0330 ≤ 1112 False. 
+P2: 1002 ≤ 1112 True; thus, Work = Work + alloc. 1112 + 1354 = 2466. 
+P3: 0020 ≤ 2466 True; thus, Work = Work + alloc. 2466 + 0632 = 2 10 9 8. 
+P4: 0642 ≤ 2 10 9 8 True; thus, Work = Work + alloc. 2 10 9 8 + 0014 = 2 10 10 12. 
+P1: 0330 ≤ 2 10 10 12 True; thus, Work = Work + alloc. 2 10 10 12 + 1420 = 3 14 12
+12.
+
+2.	Computing memory access time with no TLBs and with TLBs. 
+i)	If a memory reference takes 150 ns, how long does a paged 	memory reference take? (Note: in this case there are no Translation Look-Aside buffers i.e. any TLBs).
+2(memory accesses) * 150ns = 300ns. 
+										
+
+ii)	If we add TLBs, and we have a hit ratio of 80%, what is the 	effective memory access time? Assume that finding a page table entry in the TLBs takes 20 ns if the entry is there.
+Effective memory access time: 8 * (TLB hit-time + 20) + .2 * (TLB miss-time + 20).
+(.8 * (150 + 20)) + (.2 * (300+20)) = (.8 * 170) + (.2 * 320) = 136 + 64 = 200ns. 
+
+3. Consider the following page reference string:
+
+	0, 1, 7, 0, 1, 2, 0, 1, 2, 3, 2, 7, 1, 0, 3, 1, 0, 3
+
+How many page faults would occur for the following page replacement algorithms? Assume no pre-paging occurs, and show what pages are in memory at each given time. Three frames are allocated to the process.
+
+FIFO
+Optimal
+LRU
+
+a.	FIFO
+FRAME: 0       1     7       0      1       2     0       1     2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      2      2       2     2      3      3      3      1      1       1      1       1      1
+1                       1     1       1      1      1      0       0     0      0      2      2      2      0       0      0       0      0
+2    		      7       7      7      7      7       1     1      1      1      7      7      7       3      3       3      3
+               F        F      F                        F      F       F              F      F      F      F      F       F       
+FIFO (encounter page fault, replace first number on top and then work your go down for each page fault afterwards). 
+
+b.	Optimal
+
+
+
+FRAME: 0       1     7       0      1      2       0       1     2      3      2      7      1      0       3      1       0      3 
+0             0       0     0       0      0      0      0       0      0      3      3      3      3      3       3      3       3      3
+1                       1     1       1      1      1      1       1      1      1      1      1      1      1       1      1       1      1
+2    		      7       7      7      2      2       2      2      2      2      7      7      0       0      0       0      0
+               F        F      F                        F                                F              F               F           
+Replace number that won’t be used for the longest duration. 
+	
+
+c.	LRU 
+
+FRAME: 0       1     7       0      1      2      0      1      2      3      2      7      1      0       3      1       0       3 
+0             0       0     0       0      0      0      0      0      0      3      3      3      1      1       1      1       1       1
+1                       1     1       1      1      1      1      1      1      1      1      7      7      7       3      3       3       3
+2    		      7       7      7      2      2      2      2      2      2      2      2      0       0      0       0       0
+               F        F      F                        F                               F              F      F      F        F
+
+Replace page that was least recently used. 
+4.  Any other problem as in Assignment #2. 
+Given five memory partitions of 100k, 500k, 200k, 300k, and 600k (in order), how would each of the First-fit, Best-fit, and Worst-fit algorithms place processes of 212k, 417k, 112k, and 412k (in order)? Which algorithm makes the most efficient use of memory (in this case)?
+
+First-Fit:
+212K is placed into the 500k partition(500K – 212K = 288K remaining). 
+417K is placed into the 600K partition (600K – 417K = 183K remaining).
+112K is placed into the 288K partition (288K – 112K = 176K remaining). 
+412K has none it can be placed into; therefore, it fails. 
+Deal each process with each partition(searches for the first partition that works for the process). third process subtracts the remaining partition of the first process. 
+
+Best-Fit: 
+212K is placed into the 300K partition(300K-212K = 88K remaining).
+417K is placed into the 500K partition(500K – 417K = 83K remaining).
+112K is placed into the 200K partition(200K – 112K = 88K remaining).
+412K is placed into the 600K partition(600K – 412K = 188K remaining). 
+Each process is put into the partition that has the least amount of wasted space. 
+Worst-Fit: 
+212K is placed into the 600K partition(600K – 212K = 388K remaining).
+417K is placed into the 500K partition(500K – 417K = 83K remaining).
+112K is placed into the 388K partition(388K – 112K = 276K remaining).
+412K has none it can be placed into; therefore, it fails.
+Each process is put into the partition that has the most amount of wasted space. 
+third process subtracts the remaining partition of the first process.
+In this case, the Best-fit algorithm makes the most efficient use of memory. 
+5. Prove the Dekker algorithm satisfies all three requirements of the critical-section problem.
+
+The algorithm satisfies all three requirements: 
+a.	 Mutual Exclusion is ensured through the use of the flag and turn variables. If both of the 
+
+processes set their flag to true, only the process whose turn it is will succeed, which will 
+only cause one of the processes to succeed.  The waiting process can only enter its 
+	critical section once the other process has updated the value of turn. 
+
+b.	 Progress is also ensured through the use of the flag and turn variables. The algorithm
+
+does not provide strict alternation; thus if a process wishes to enter into the critical 
+	section, its flag variable must be set to true. When it comes out of the critical section, 
+	its flag variable must be set to false and change the turn value of the other process. If 
+the other process wishes to enter into the critical section, its flag variable must be set to 
+              true. The process is repeated and the progress is ensured through the flag and turn 
+              variables. 
+c.	Bounded waiting is preserved through the use of the turn variable.  Consider a
+
+situation where process 1 and process 2 both wish to enter into the critical 
+	section:
+		Even if both processes would set their flag variables to be true, it would
+	not be possible for both processes to enter into the critical section; thus, one process
+	would need to wait for the other process to exit out of the critical section and have its 
+turn value set to true before it could enter into the critical section. If the bounded 
+waiting requirement is not preserved, the waiting process would wait for indefinitely 
+while the other process would enter into the critical section repeatedly. 
+
+	Chapter 6 
+	Race Condition
+	Incorrect value of count may be generated because both processes 
+	manipulate count concurrently. It is needed to ensure that only one process 
+	can manipulate the variable count at a time. 
+	When several processes access and manipulate the same data concurrently 
+	and the outcome of the execution depends on the order in which the 
+	access takes place, we have a race condition. 
+
+Solutions to Critical-Section Problem 
+-Mutual exclusion – If process Pi is executing in its critical section, then 
+no other processes can be executing in their critical sections. 
+Progress – If no progress is executing in its critical section and there exist
+some processes that wish to enter their critical section, then the selection of the processes that will enter the critical section next cannot be postponed indefinitely. 
+Bounded Waiting – A bound must exist on the number of times that other processes are allowed to enter their critical sections after a process has made a request to enter its critical section and before that result is granted. 
+	Assume that each process executes at a nonzero speed 
+	No assumption concerning relative speed of the N processes
+ do { 
+	while turn does not equal I do noop(do nothing);
+		Critical section
+	turn = j;
+		Remainder section
+	} while(TRUE);
+Pi and Pj share an integer variable turn initialized to 0. If turn = i, Pi 
+can execute in its critical section. 
+Mutual exclusion is assured but progress requirement is not since it requires strict alternation of processes in the execution of the critical section. 
+E.g. if turn = i and Pi does not want to enter the CS (critical section) and Pj wants to enter the CS, then it can’t. 
+
+Algorithm 2 
+	Pi and Pj share an array: Boolean flag[2];
+	flag[0] and flag[1] are initialized to false. If flag [i] is true, then it indicates Pi is ready to enter its critical section. 
+do{
+	flag[i] = true;
+	while flag[j] do noop; 
+		Critical Section
+	flag[i] = false; 
+		Remainder section
+	} while (True). 
+Here too the progress requirement is not met even though mutual exclusion is satisfied. 
+Need to remember that P0 and P1 are executing concurrently.
+Say,	T0: P0 sets flag [0] to true
+		T1: P1 sets flag [1] to true 
+		Now both P0 and P1 are looping infinitely in their while loops. 
+Peterson’s Solution
+Two process solution 
+Assume that the LOAD and STORE instructions are atomic; that is, cannot be interrupted. 
+The two processes share two variables: 
+int turn; 
+Boolean flag[2] 
+The variable turn indicates whose turn it is to enter the critical section. 
+The flag array is used to indicate if a process is ready to enter the critical section. flag[i] = true implies that process Pi is ready! 
+
+while(true){ 
+	flag[i] = true;
+	turn = j; 
+	while(flag[j] && turn == j); 
+	critical section
+	flag[i] = false; 
+	remainder section
+} 
+
+This algorithm meets all 3 conditions that a solution to CS problem that meet. 
+Say Pi wants to enter its CS. IT can be prevented only if flag[j] is true and turn = j. If Pj is not ready to enter its CS, then flag[j] is false and Pi will enter its CS.
+If Pj has set flag[j] to true and is also executing its while loop, then either turn = i or turn = j(depends on whether Pi or Pj accessed turn last) and so mutual exclusion is assured. 
+If say Pj enters it CS then upon exiting it will set flag[j] to false so Pi can now enter its CS. 
+If Pj has set flag[j] to true and is also executing in its while loop, then either turn = i or turn = j(depends on whether Pi or Pj accessed turn last) and so mutual exclusion is assured. 
+If say Pj enters it CS then upon exiting it will set flag[j] to false so Pi can now enter its CS. 
+If Pj resets flag[j] to true if it wants to enter CS again, then it will also turn = i. So Pi will enter its CS (progress is assured) after at most 1 entry by Pj (bounded waiting is assured). 
+
+A semaphore S is a global variable that is accessed by only process Pi at a time. 
+It is an integer variable that, apart from initialization, is accessed only through two atomic operations: wait and signal. 
+Two standard operations modify S: wait() and signal() 
+	Originally called P() and V()
+wait(s): 	while S is less than or equal to 0 do noop;
+		S = S – 1;
+signal(s): S = S + 1;
+
+wait and signal are executed indivisibly(while one process is modifying the semaphore, no other process can simultaneously modify it). 
+
+N buffers, each can hold one item
+Semaphore mutex initialized to the value 1 to provide mutual exclusion for access to the buffer pool. 
+Semaphore full initialized to the value 0 to count the # of full buffers. 
+Semaphore empty initialized to the value N to count the # of empty buffers. 
+
+Solution(Shared Data): 
+Semaphore mutex initialized to 1(ensures mutual exclusion when the variable readCount is updated). 
+Semaphore wrt initialized to 1(common to both readers and writers. IT is used to provide mutual exclusion to writers. It is also used by the first or last reader that enters or exits the CS). 
+Integer readCount initialized to 0(the # of readers currently reading the object). 
+Consumer process: 
+do { 
+	wait(full);
+	wait(mutex);
+		Remove an item from buffer to nextc; 
+	signal(mutex); 
+	signal(empty);
+	consume the item nextc; 
+} while(TRUE); 
+Readers-Writers Problem 
+Problem – Allow multiple readers to read at the same time. Mutual exclusion is needed to prevent a writer and some other process from simultaneously accessing the shared object (e.g. airline reservation record). This synchronization is called the readers and writers problem.
+No reader should be kept waiting unless a writer has already obtained permission to use the shared object (could lead to writer starvation).
+Dining-Philosophers Problem 
+Problem represents the need to allocate several resources among several processes in a deadlock and starvation free manner. 
+Solution: Represent each chopstick by a semaphore. A philosopher tries to grab a chopstick by executing a wait () on that semaphore. A chopstick is released by a signal operation. 
+Semaphore chopstick[5] initialized to 1. 
+
+Chapter 7 
+Necessary conditions for a deadlock (can arise if four conditions hold simultaneously): 
+Mutual Exclusion: only one process at a time can use a resource. 
+Hold and wait: A process holding at least one resource is waiting to acquire additional resources held by other processes. 
+No preemption: a resource can be released only voluntarily by the process holding it, after that process has completed its task. 
+Circular wait: there exists a set{P0, P1,…, Pn} of waiting processes such that P0 is waiting for a resource that is held by P1, P1 is waiting for a resource that is held by P2, …, Pn-1 is waiting for a resource that is held by Pn, and Pn is waiting for a resource that is held by P0. 
+Resource-Allocation Graph 
+A set of vertices V and a set of edges E 
+	V is partitioned into two types: 
+	P = {P1, P2, …, Pn}, the set consisting of all the processes in the system.
+	R = {R1, R2, …, Rm}, the set consisting of all resource types in the system. 
+request edge – directed edge Pi to Rj 
+assignment edge – directed edge Rj to Pi. 
+
+Ensure that the system will never enter a deadlock state. 
+Allow the system to enter a deadlock state and then recover. 
+Ignore the problem and pretend that deadlocks never occur in the system; used by most operating systems, including UNIX. 
+To ensure that deadlocks never occur we use either a deadlock prevention or deadlock avoidance algorithms. 
+Deadlock Prevention
+Mutual Exclusion: It is not possible to prevent deadlocks by denying the mutual exclusion condition since some resources are intrinsically non-sharable (e.g. printer). A read only file is an example of a sharable resource. 
+Hold and Wait: Need to ensure that when a process requests a resource, it does not hold any other resources. 
+Require process to request and be allocated all its resources before it begins execution, or a process to requests some resources, uses them, releases them, and then request other resources. 
+Low resource utilization because many of the allocated resources may be unused for long periods; starvation possible. 
+No Preemption –
+If a process that is holding some resources requests another resource that cannot be immediately allocated to it, then all resources currently being held are released. 
+Preempted resources are added to the list of resources for which the process is waiting. 
+Process will be restarted only when it can regain its old resources, as well as the new ones that is requesting. 
+Circular Wait – Impose a total ordering of all resource types, and require that each process requests resources in an increasing order of enumeration. 
+Deadlock Avoidance 
+Requires that the system has some additional a priori information available about how resources are to be requested. 
+	Simplest and most useful model requires that each process declare the maximum number of resources each type that it may need. 
+	The deadlock-avoidance algorithm dynamically examines the resource-allocation state to ensure that there can never be a circular-wait condition. 
+Resource-allocation state is defined by the number of available and allocated resources, and the maximum demands of the processes. 
+When a process requests an available resource, system must decide if immediate allocation leaves the system in a safe state. 
+A state is safe if the system can allocate resources to each process (up to its maximum) in some order and still avoid deadlock. 
+System is in safe state if there exists a sequence <P1, P2, …, Pn> of All the processes is the systems such that for each Pi, the resources that Pi can still request can be satisfied by currently available resources + resources held by all the Pj, with j < l. 
+That is: 
+	If Pi resources needs are not immediately available, then Pi can wait until all Pj have finished. 
+When Pj is finished, Pi can obtain needed resources, execute, return allocated resources, and terminate. 
+When Pi terminates, Pi +1 can obtain its needed resources, and so on. 
+If a system is in safe state no deadlocks. 
+If a system is in unsafe state may lead to a deadlock. 
+Avoidance ensure that a system will never enter an unsafe state. 
+
+Chapter 8: Main Memory 
+Logical address: generated by the CPU; also referred to as virtual address. 
+Physical address: address seen by the memory unit. 
+Say we have Round Robin CPU scheduling and when the time quantum expires the scheduler calls the dispatcher. The dispatcher checks to see if the next process in the ready queue is in memory. If not and there is no free memory, the dispatcher swaps out a process currently in memory and swaps in the desired process from the backing store. 
+Backing store: fast disk large enough to accommodate copies of all memory images for all users; must provide direct access to these memory images. 
+Roll out, roll in: swapping variant used for priority-based scheduling algorithms; lower-priority process is swapped out so higher-priority process can be loaded and executed. 
+Major part of swap time is transfer time; total transfer time is directly proportional to the amount of memory swapped. 
+Modified versions of swapping are found on many systems (i.e., UNIX, Linux, and Windows).  
+
+Contiguous Allocation
+Main memory usually into two partitions: 
+	Resident operating system, usually held in low memory with 
+	Interrupt vector.
+	User processes then held in high memory. 
+Relocation registers used to protect user processes from each other, and from changing operating-system code and data
+	Base or relocation register contains value of smallest physical address.
+	Limit register contains range of logical addresses – each logical address must be less than the limit register. 
+		When CPU scheduler selects a process for execution, the dispatcher loads these 2 registers as part of the context switch. Every address given by the CPU is checked against these registers thus protecting the O/S and other user programs and data from being modified by this process. 
+Multiple-partition allocation
+To allocate available memory to various processes waiting to be brought into memory.
+Hole – block of available memory; holes of various sizes are scattered throughout memory. 
+When a process arrives, it is allocated memory from a hole large enough to accommodate it. 
+Operating system maintains information in a table about: 
+a)	allocated partitions b) free partitions(hole). 
+First-Fit: Allocate the first hole that is big enough.
+Best-Fit: Allocate the smallest hole that is big enough; must search entire list, unless ordered by size. 
+	Produces the smallest leftover hole.
+Worst-fit: Allocate the largest hole, must also search entire list.
+	Produces the largest leftover hole. 
+External Fragmentation – total memory space exists to satisfy a request, but it is not contiguous. As processes are loaded and removed from memory, the free memory space is fragmented into a large # of small holes. 
+E.g. in figure (a) total external fragmentation = 260K(too small to satisfy P4 and P5). 
+In figure © total external fragmentation = 300K = 260K = 560K. This space is large enough to run P5(which needs 500K) but this free memory is not contiguous. 
+Internal Fragmentation – Allocated memory may be slightly larger than requested memory; this size different is memory internal to a partition, but not being used. 
+E.g. If we have a hole of 18,464 bytes and the next process request is for 18,462 bytes, we are left with a hole of 2 bytes. The overhead of keeping track of this small hole is greater than the hole itself. So the entire hole of 18,464 is allocated to the process. The difference between the allocated memory and requested memory (2 bytes) is internal fragmentation. 
+Reduce external fragmentation by compaction
+	Shuffle memory contents to place all free memory together in one large block.
+Compaction is possible only if relocation is dynamic, and is done at execution time. 
+Paging 
+Logical address space of a process can be noncontiguous thus allowing a process to be allocated physical memory whenever the latter is available (this is another solution to external fragmentation). 
+Divide physical memory into fixed-sized blocks called frames (size is power of 2, between 152 bytes and 8192 bytes). 
+Divide logical memory into blocks of same size called pages. 
+Keep track of all free frames. 
+To run a program of size n pages, need to find n free frames and load program. 
+Set up a page table to translate logical to physical address.
+Internal fragmentation.  
+Address generated by CPU is divided into: 
+Page number(p) used as an index into a page table which contains base address of each page in physical memory. 
+Page offset – Combined with base address to define the physical memory address that is sent to the memory unit. 
+Page sizes are always a power of 2. Why? 
+Selection of a power of 2 as a page size makes the translation of a logical address into a page # and its page offset easy.
+E.G. If logical address size is 2 to the m power and page size = 2 to the n power then the high order m-n bits of a logical space designate the page# and the low order n bits designate the page offset.
+page number(m-n) 
+page offset n. 
+Say logical address = 8K= 8192 bytes, i.e. 2 to the 13th power = 8K and page size = 1k = 1024 bytes = 2 to the 10th power. 
+13 – 10 = 3 bits indicate the page # (2 to the 3rd power = 8 pages, i.e. pages 0-7).   
+TLB is a set of fast registers each containing a page# and a frame#. These registers contain only a few of the page-table entries. 
+If the page# is found in the TLBs ten its frame# is available immediately and used to access memory. This takes less than 10% longer than it would if an unmapped(without the use of a page table). memory references were made. 
+If the page# is not found in the TLBs, a reference to the page table must be made. The page# and frame# are added to the TLB. 
+The TLB must be flushed at each context switch. 
+Multilevel Paging
+Modern computer systems support a very large logical address space(2 to the 32nd to 2 to the 64th). Then the page table becomes too big to store. 
+Also, by partitioning the page table we allow the OS to leave partitions unused till a process needs them. 
+Segmentation 
+Memory-management scheme that supports user view of memory. 
+A logical address space(user program) is a collection of segments. 
+	A segment is a logical unit such as: 
+	Main program, procedure, function, method. 
